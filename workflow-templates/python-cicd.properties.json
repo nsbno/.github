@@ -1,0 +1,12 @@
+{
+  "name": "Python CI/CD Workflow",
+  "description": "A CI/CD workflow template for Python projects",
+  "categories": [
+    "Python"
+  ],
+  "filePatterns": [
+    "pyproject.toml$",
+    "^Dockerfile",
+    ".*\\.md$"
+  ]
+}

@@ -1,0 +1,28 @@
+name: Python CI/CD Deployment
+
+on:
+  push:
+    branches: [ $default-branch ]
+
+jobs:
+  terraform-changes:
+    uses: nsbno/platform-actions/.github/workflows/helpers.find-changes.terraform.yml@main
+    secrets: inherit
+
+  package:
+    uses: nsbno/platform-actions/.github/workflows/package.docker.yml@main
+    secrets: inherit
+    with:
+      repo-name: $repo-name
+      lambda-compatible: true
+
+  deploy:
+    needs:
+      - package
+      - terraform-changes
+    uses: nsbno/platform-actions/.github/workflows/deployment.all-environments.yml@main
+    secrets: inherit
+    if: '!cancelled() && !contains(needs.*.results, ''failure'')'
+    with:
+      application-names: $application-names
+      terraform-changes: ${{ needs.terraform-changes.outputs.has-changes }}
