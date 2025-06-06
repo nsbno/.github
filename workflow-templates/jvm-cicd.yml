@@ -28,7 +28,7 @@ jobs:
       - test
     secrets: inherit
     with:
-      repo-name: $ecr-repo-name
+      repo-name: <ecr-repo-name>
       artifact-name: ${{ needs.build.outputs.artifact-name }}
       artifact-path: ${{ needs.build.outputs.artifact-path }}
 
@@ -42,5 +42,5 @@ jobs:
     secrets: inherit
     if: '!cancelled() && !contains(needs.*.results, ''failure'') && success()'
     with:
-      applications: $applications
+      applications: <applications-names>
       terraform-changes: ${{ needs.terraform-changes.outputs.has-changes }}

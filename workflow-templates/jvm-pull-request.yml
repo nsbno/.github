@@ -1,0 +1,17 @@
+name: "Pull Request"
+
+'on':
+  - pull_request
+
+jobs:
+  build:
+    uses: nsbno/platform-actions/.github/workflows/build.gradle.yml@main
+    secrets: inherit
+
+  test:
+    uses: nsbno/platform-actions/.github/workflows/test.gradle.yml@main
+    secrets: inherit
+
+  terraform-plan:
+    uses: nsbno/platform-actions/.github/workflows/helpers.terraform-plan.yml@main
+    secrets: inherit

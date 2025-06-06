@@ -1,6 +1,6 @@
 {
-  "name": "JVM Build and Deploy Workflow",
-  "description": "A build and deploy workflow template for JVM projects. Replace parameters enclosed in `< >`",
+  "name": "JVM Pull Request Workflow",
+  "description": "A pull request workflow template for JVM projects.",
   "categories": [
     "Java",
     "Kotlin"
