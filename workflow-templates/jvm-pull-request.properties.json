@@ -1,5 +1,5 @@
 {
-  "name": "JVM Pull Request Workflow",
+  "name": "JVM Pull Request",
   "description": "A pull request workflow template for JVM projects.",
   "categories": [
     "Java",
