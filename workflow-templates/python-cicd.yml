@@ -22,7 +22,7 @@ jobs:
       - terraform-changes
     uses: nsbno/platform-actions/.github/workflows/deployment.all-environments.yml@main
     secrets: inherit
-    if: '!cancelled() && !contains(needs.*.results, ''failure'')'
+    if: '!cancelled() && !contains(needs.*.results, ''failure'') && success()'
     with:
-      application-names: $application-names
+      applications: $application-names
       terraform-changes: ${{ needs.terraform-changes.outputs.has-changes }}
