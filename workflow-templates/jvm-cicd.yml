@@ -1,0 +1,46 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [ $default-branch ]
+
+jobs:
+  terraform-changes:
+    uses: nsbno/platform-actions/.github/workflows/helpers.find-changes.terraform.yml@main
+    secrets: inherit
+
+  build:
+    uses: nsbno/platform-actions/.github/workflows/build.gradle.yml@main
+    secrets: inherit
+    with:
+      java-version: '17'
+
+  test:
+    uses: nsbno/platform-actions/.github/workflows/test.gradle.yml@main
+    secrets: inherit
+    with:
+      java-version: '17'
+
+  package:
+    uses: nsbno/platform-actions/.github/workflows/package.docker.yml@main
+    needs:
+      - build
+      - test
+    secrets: inherit
+    with:
+      repo-name: $ecr-repo-name
+      artifact-name: ${{ needs.build.outputs.artifact-name }}
+      artifact-path: ${{ needs.build.outputs.artifact-path }}
+
+  deploy:
+    needs:
+      - terraform-changes
+      - build
+      - test
+      - package
+    uses: nsbno/platform-actions/.github/workflows/deployment.all-environments.yml@main
+    secrets: inherit
+    if: '!cancelled() && !contains(needs.*.results, ''failure'') && success()'
+    with:
+      applications: $applications
+      terraform-changes: ${{ needs.terraform-changes.outputs.has-changes }}

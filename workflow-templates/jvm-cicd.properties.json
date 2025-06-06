@@ -1,0 +1,14 @@
+{
+  "name": "Vy JVM Build and Deploy Workflow",
+  "description": "A build and deploy workflow template for JVM projects. Replace parameters starting with `$`",
+  "categories": [
+    "Java",
+    "Kotlin"
+  ],
+  "filePatterns": [
+    "build.gradle.kts$",
+    "build.gradle$",
+    "^Dockerfile",
+    ".*\\.md$"
+  ]
+}
