@@ -1,0 +1,15 @@
+{
+  "name": "Preview Cleanup for SSR web applications",
+  "description": "Will clean up a preview environment on a schedule. Replace parameters enclosed in `< >`.",
+  "categories": [
+    "javascript",
+    "typescript",
+    "nodejs",
+    "npm",
+    "yarn",
+    "pnpm"
+  ],
+  "filePatterns": [
+    "package.json$"
+  ]
+}

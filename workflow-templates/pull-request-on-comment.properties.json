@@ -1,0 +1,10 @@
+{
+  "name": "Pull Request on Comment",
+  "description": "Jobs for comments on pull request, e.g. deploy to test. Replace parameters enclosed in `< >`.",
+  "categories": [
+    "*"
+  ],
+  "filePatterns": [
+    "*"
+  ]
+}

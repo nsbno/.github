@@ -1,0 +1,15 @@
+{
+  "name": "Pull Request Node.js Workflow",
+  "description": "Jobs for pull request, e.g. preview url. Replace parameters enclosed in `< >`.",
+  "categories": [
+    "javascript",
+    "typescript",
+    "nodejs",
+    "npm",
+    "yarn",
+    "pnpm"
+  ],
+  "filePatterns": [
+    "package.json$"
+  ]
+}

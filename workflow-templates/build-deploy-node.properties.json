@@ -1,0 +1,15 @@
+{
+  "name": "Node Build and Deploy",
+  "description": "A build and deploy workflow template for Node projects. Replace parameters enclosed in `< >`",
+  "categories": [
+    "javascript",
+    "typescript",
+    "nodejs",
+    "npm",
+    "yarn",
+    "pnpm"
+  ],
+  "filePatterns": [
+    "package.json$"
+  ]
+}

@@ -1,0 +1,22 @@
+name: On pull request comment
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  # Optional: Trigger a preview url deploy on comment (frontend SSR apps)
+  preview-comment:
+    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '.preview') }}
+    secrets: inherit
+    uses: nsbno/platform-actions/.github/workflows/deployment.preview.on-comment.yml@main
+    with:
+      service-name: <service-name>
+
+  # Optional: Trigger a deploy to test environment on comment
+  deploy-to-test:
+    if: github.event.issue.pull_request && startsWith(github.event.comment.body, '.deploy')
+    uses: nsbno/platform-actions/.github/workflows/deployment.branch-deploy.on-comment.yml@main
+    secrets: inherit
+    with:
+      applications: <service-name>

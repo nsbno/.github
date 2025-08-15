@@ -1,0 +1,39 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [ $default-branch ]
+
+jobs:
+  terraform-changes:
+    uses: nsbno/platform-actions/.github/workflows/helpers.find-changes.terraform.yml@main
+    secrets: inherit
+
+  build:
+    uses: nsbno/platform-actions/.github/workflows/build.node.yml@main
+    secrets: inherit
+
+  # Test job can be added here
+
+  package:
+    uses: nsbno/platform-actions/.github/workflows/package.docker.yml@main
+    needs:
+      - build
+    secrets: inherit
+    with:
+      repo-name: <ecr-repo-name>
+      artifact-name: ${{ needs.build.outputs.artifact-name }}
+      artifact-path: ${{ needs.build.outputs.artifact-path }}
+
+  deploy:
+    needs:
+      - terraform-changes
+      - package
+      - build
+      - package
+    uses: nsbno/platform-actions/.github/workflows/deployment.all-environments.yml@main
+    secrets: inherit
+    if: '!cancelled() && !contains(needs.*.results, ''failure'') && success()'
+    with:
+      applications: <applications-names>
+      terraform-changes: ${{ needs.terraform-changes.outputs.has-changes }}
